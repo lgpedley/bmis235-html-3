@@ -11,15 +11,15 @@
 
 body {
     font-family: Georgia, "Times New Roman", serif;
-    background-color: #800000;
-    color: #F3EBD6;
+    background-color: #F3EBD6;
+    color: #B6D0E2;
     margin: 0;
     padding: 0 20px 40px 20px;
 }
 
 /* the menu at the top of every page */
 nav {
-    background-color: #5C4033;
+    background-color: #654321;
     padding: 14px;
     text-align: center;
 }
@@ -54,6 +54,6 @@ p {
 footer {
     text-align: center;
     font-size: 14px;
-    color: #800000;
+    color: #654321;
     margin-top: 40px;
 }
