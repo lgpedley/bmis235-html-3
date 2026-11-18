@@ -59,12 +59,12 @@ footer {
 }
 /* links in the page text */
 a {
-    color: #B6D0E2;
+    color: #f8d8d8;
 }
 
 /* links you've already clicked */
 a:visited {
-    color: #4d0000;
+    color: #f8d8d8;
 }
 
 /* when you hover over a link */
