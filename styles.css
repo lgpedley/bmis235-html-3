@@ -57,3 +57,17 @@ footer {
     color: #B6D0E2;
     margin-top: 40px;
 }
+/* links in the page text */
+a {
+    color: #B6D0E2;
+}
+
+/* links you've already clicked */
+a:visited {
+    color: #4d0000;
+}
+
+/* when you hover over a link */
+a:hover {
+    color: #fffec1;
+}
