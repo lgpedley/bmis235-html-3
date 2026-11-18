@@ -15,7 +15,7 @@
 <body>
 
 <nav>
-    <a href="index.html.html"><img src="img/Missingcoven.png" alt="Missing Coven"></a>
+    <a href="Missingcoven.html"><img src="img/Missingcoven.png" alt="Missing Coven"></a>
     <a href="Emmaandcamille.html"><img src="img/Eandc.png" alt="Emma and Camille"></a>
     <a href="Randa.html"><img src="img/Randa.png" alt="Regan and Aubee"></a>
     <a href="Sarah.html"><img src="img/Sarah.png" alt="Sarah"></a>
@@ -214,4 +214,19 @@
     count.textContent = 'In Spokane: ' + inSpokane + ' of ' + people.length;
   }
 
-  root.querySelectorAll('.rm-toggle
+  root.querySelectorAll('.rm-toggle button').forEach(function (btn) {
+    btn.addEventListener('click', function () { setMode(btn.getAttribute('data-mode')); });
+  });
+
+  setMode('now');
+})();
+</script>
+
+</div>
+<!-- end of showcase -->
+
+<!-- Footer: Grace Pedley -->
+<footer>Built by Grace Pedley &middot; BMIS 235</footer>
+
+</body>
+</html>
