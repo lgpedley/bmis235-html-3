@@ -55,33 +55,34 @@
   </div>
 </div>
 
-<!-- CSS: brand colors (Georgia, #2D1B0E, #B6D0E2), layout, pin animation, and mobile sizing. Every rule starts with .showcase -->
+<!-- CSS: brand colors (Georgia, #fffec1 main, #B6D0E2 accent), layout, pin animation, and mobile sizing. Every rule starts with .showcase -->
 <style>
 .showcase .rm, .showcase .rm * { box-sizing: border-box; }
-.showcase .rm { font-family: Georgia, serif; background: #2D1B0E; color: #F6EFE6; border-radius: 14px; padding: 12px; max-width: 560px; margin: 0 auto; }
+.showcase .rm { font-family: Georgia, serif; background: #fffec1; color: #2D1B0E; border: 3px solid #B6D0E2; border-radius: 14px; padding: 12px; max-width: 560px; margin: 0 auto; }
 .showcase .rm-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
-.showcase .rm-title { font-size: 16px; font-style: italic; color: #B6D0E2; }
-.showcase .rm-toggle { display: flex; border: 1px solid #B6D0E2; border-radius: 999px; overflow: hidden; }
-.showcase .rm-toggle button { font-family: Georgia, serif; font-size: 13px; padding: 6px 14px; background: transparent; color: #B6D0E2; border: 0; cursor: pointer; }
+.showcase .rm-title { font-size: 17px; font-style: italic; font-weight: bold; color: #2D1B0E; }
+.showcase .rm-toggle { display: flex; border: 2px solid #2D1B0E; border-radius: 999px; overflow: hidden; }
+.showcase .rm-toggle button { font-family: Georgia, serif; font-size: 13px; padding: 6px 14px; background: transparent; color: #2D1B0E; border: 0; cursor: pointer; }
 .showcase .rm-toggle button.on { background: #B6D0E2; color: #2D1B0E; font-weight: bold; }
-.showcase .rm-map { display: block; width: 100%; height: 250px; margin-top: 8px; }
-.showcase .rm-land { fill: #4A3220; stroke: #B6D0E2; stroke-opacity: .45; stroke-width: 1; }
-.showcase .rm-sound { fill: #2D1B0E; }
-.showcase .rm-state { font-size: 8px; letter-spacing: 2px; fill: #B6D0E2; opacity: .35; }
-.showcase .rm-line { stroke: #B6D0E2; stroke-width: 1.2; stroke-dasharray: 4 4; opacity: 0; transition: opacity .6s ease .5s; }
-.showcase .rm.now .rm-line { opacity: .7; }
-.showcase .rm-cdot { fill: none; stroke: #B6D0E2; stroke-width: 1.5; }
-.showcase .rm-clabel { font-size: 11px; fill: #F6EFE6; transition: opacity .5s; }
-.showcase .rm-city.empty { opacity: .3; }
+.showcase .rm-map { display: block; width: 100%; height: 250px; margin-top: 8px; background: #B6D0E2; border-radius: 10px; }
+.showcase .rm-land { fill: #fffec1; stroke: #2D1B0E; stroke-opacity: .55; stroke-width: 1; }
+.showcase .rm-sound { fill: #B6D0E2; }
+.showcase .rm-state { font-size: 8px; letter-spacing: 2px; fill: #2D1B0E; opacity: .4; }
+.showcase .rm-line { stroke: #2D1B0E; stroke-width: 1.2; stroke-dasharray: 4 4; opacity: 0; transition: opacity .6s ease .5s; }
+.showcase .rm.now .rm-line { opacity: .6; }
+.showcase .rm-cdot { fill: none; stroke: #2D1B0E; stroke-width: 1.5; }
+.showcase .rm-clabel { font-size: 11px; fill: #2D1B0E; }
 .showcase .rm-city { transition: opacity .5s; }
+.showcase .rm-city.empty { opacity: .3; }
 .showcase .rm-pin { cursor: pointer; transition: transform .9s cubic-bezier(.4, 0, .2, 1); outline: none; }
 .showcase .rm-bubble { transform-box: fill-box; transform-origin: center; transition: transform .2s; }
 .showcase .rm-pin:hover .rm-bubble, .showcase .rm-pin:focus .rm-bubble { transform: scale(1.2); }
 .showcase .rm-pin circle { fill: #B6D0E2; stroke: #2D1B0E; stroke-width: 2; }
-.showcase .rm-pin.sel circle { fill: #F6EFE6; stroke: #B6D0E2; stroke-width: 3; }
+.showcase .rm-pin.sel circle { fill: #2D1B0E; stroke: #B6D0E2; stroke-width: 3; }
 .showcase .rm-pin text { font-size: 10px; font-weight: bold; fill: #2D1B0E; text-anchor: middle; pointer-events: none; }
-.showcase .rm-info { margin-top: 8px; min-height: 58px; padding: 8px 10px; background: rgba(182, 208, 226, .12); border-left: 3px solid #B6D0E2; border-radius: 6px; font-size: 14px; line-height: 1.35; }
-.showcase .rm-count { margin-top: 4px; font-size: 12px; color: #B6D0E2; font-style: italic; }
+.showcase .rm-pin.sel text { fill: #fffec1; }
+.showcase .rm-info { margin-top: 8px; min-height: 58px; padding: 8px 10px; background: rgba(182, 208, 226, .45); border-left: 4px solid #2D1B0E; border-radius: 6px; font-size: 14px; line-height: 1.35; }
+.showcase .rm-count { margin-top: 4px; font-size: 12px; font-style: italic; }
 @media (max-width: 400px) {
   .showcase .rm { padding: 10px; }
   .showcase .rm-info { font-size: 13px; }
@@ -96,9 +97,9 @@
   var NS = 'http://www.w3.org/2000/svg';
 
   var cities = {
-    spokane: { name: 'Spokane, WA',     x: 247, y: 42,  mi: 0 },
-    everett: { name: 'Everett, WA',     x: 85,  y: 31,  mi: 220 },
-    sac:     { name: 'Sacramento, CA',  x: 109, y: 256, mi: 660 },
+    spokane: { name: 'Spokane, WA',      x: 247, y: 42,  mi: 0 },
+    everett: { name: 'Everett, WA',      x: 85,  y: 31,  mi: 220 },
+    sac:     { name: 'Sacramento, CA',   x: 109, y: 256, mi: 660 },
     bay:     { name: 'the Bay Area, CA', x: 78,  y: 276, mi: 730 }
   };
   var labelPos = {
