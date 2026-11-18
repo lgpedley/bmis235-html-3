@@ -9,37 +9,209 @@
 <meta charset="utf-8">
 <meta name="author" content="Grace Pedley">
 <title>Missing Coven</title>
-<a href="mailto:lpedley@zagmail.gonzaga.edu">Email me</a>
 <!-- this one line connects the page to the stylesheet -->
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- ===== MENU ============================================================
-     The menu is four links. Each link wraps an image instead of words.
-     Build it once on this page, check that every link works,
-     then copy the whole <nav> block and paste it over the menu on the
-     other three pages, so every page has the exact same menu.
-     ===================================================================== -->
 <nav>
     <a href="Missingcoven.html"><img src="img/Missingcoven.png" alt="Missing Coven"></a>
     <a href="Emmaandcamille.html"><img src="img/Eandc.png" alt="Emma and Camille"></a>
-    <a href="Randa"><img src="img/Randa.png" alt="Regan and Aubee"></a>
+    <a href="Randa.html"><img src="img/Randa.png" alt="Regan and Aubee"></a>
     <a href="Sarah.html"><img src="img/Sarah.png" alt="Sarah"></a>
 </nav>
 
 <h1>Missing Coven</h1>
 <p>This one is for my ladies.</p>
 <p>Wow. It's true, you never know how good you have it till it's gone. But aren't we lucky to miss what we had? The open bars, the dooby den talks, watching music videos. While these moments have become memories, coven remains forever. </p>
+<p><a href="mailto:lpedley@zagmail.gonzaga.edu">Email me</a></p>
 
-<!-- ===== SHOWCASE ======================================================
-     This box is empty on purpose. In Part 7 you paste an interactive
-     graphic BETWEEN the opening <div> and the closing </div> below.
-     ===================================================================== -->
-<div class="showcase"></div>
+<!-- ===== SHOWCASE ====================================================== -->
+<div class="showcase">
 
-<!-- Footer: Grace Pedley -->
-<footer>Built by Grace Pedley &middot; BMIS 235</footer>
+<!-- HTML: a toggle (Last year / Right now), a simple West Coast map, and a text box that explains whichever pin you tap -->
+<div class="rm">
+  <div class="rm-top">
+    <span class="rm-title">Where the coven is</span>
+    <div class="rm-toggle" role="group" aria-label="Choose a time">
+      <button type="button" data-mode="last">Last year</button>
+      <button type="button" data-mode="now" class="on">Right now</button>
+    </div>
+  </div>
+  <svg class="rm-map" viewBox="0 0 320 300" role="img" aria-label="Map showing where each roommate lives">
+    <path class="rm-land" d="M0,0 L0,16 L4,22 L14,48 L24,58 L26,90 L28,140 L16,176 L10,212 L32,236 L74,272 L92,300 L320,300 L320,0 Z"/>
+    <path class="rm-sound" d="M12,22 L50,26 L78,30 L76,50 L64,66 L56,52 L40,38 L18,32 Z"/>
+    <text class="rm-state" x="150" y="20">WASHINGTON</text>
+    <text class="rm-state" x="140" y="130">OREGON</text>
+    <text class="rm-state" x="190" y="205">CALIFORNIA</text>
+    <text class="rm-state" x="314" y="294" text-anchor="end">map not to scale</text>
+    <g class="rm-lines"></g>
+    <g class="rm-cities"></g>
+    <g class="rm-pins"></g>
+  </svg>
+  <div class="rm-info" aria-live="polite">
+    <div class="rm-msg"></div>
+    <div class="rm-count"></div>
+  </div>
+</div>
 
-</body>
-</html>
+<!-- CSS: brand colors (Georgia, #2D1B0E, #B6D0E2), layout, pin animation, and mobile sizing. Every rule starts with .showcase -->
+<style>
+.showcase .rm, .showcase .rm * { box-sizing: border-box; }
+.showcase .rm { font-family: Georgia, serif; background: #2D1B0E; color: #F6EFE6; border-radius: 14px; padding: 12px; max-width: 560px; margin: 0 auto; }
+.showcase .rm-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.showcase .rm-title { font-size: 16px; font-style: italic; color: #B6D0E2; }
+.showcase .rm-toggle { display: flex; border: 1px solid #B6D0E2; border-radius: 999px; overflow: hidden; }
+.showcase .rm-toggle button { font-family: Georgia, serif; font-size: 13px; padding: 6px 14px; background: transparent; color: #B6D0E2; border: 0; cursor: pointer; }
+.showcase .rm-toggle button.on { background: #B6D0E2; color: #2D1B0E; font-weight: bold; }
+.showcase .rm-map { display: block; width: 100%; height: 250px; margin-top: 8px; }
+.showcase .rm-land { fill: #4A3220; stroke: #B6D0E2; stroke-opacity: .45; stroke-width: 1; }
+.showcase .rm-sound { fill: #2D1B0E; }
+.showcase .rm-state { font-size: 8px; letter-spacing: 2px; fill: #B6D0E2; opacity: .35; }
+.showcase .rm-line { stroke: #B6D0E2; stroke-width: 1.2; stroke-dasharray: 4 4; opacity: 0; transition: opacity .6s ease .5s; }
+.showcase .rm.now .rm-line { opacity: .7; }
+.showcase .rm-cdot { fill: none; stroke: #B6D0E2; stroke-width: 1.5; }
+.showcase .rm-clabel { font-size: 11px; fill: #F6EFE6; transition: opacity .5s; }
+.showcase .rm-city.empty { opacity: .3; }
+.showcase .rm-city { transition: opacity .5s; }
+.showcase .rm-pin { cursor: pointer; transition: transform .9s cubic-bezier(.4, 0, .2, 1); outline: none; }
+.showcase .rm-bubble { transform-box: fill-box; transform-origin: center; transition: transform .2s; }
+.showcase .rm-pin:hover .rm-bubble, .showcase .rm-pin:focus .rm-bubble { transform: scale(1.2); }
+.showcase .rm-pin circle { fill: #B6D0E2; stroke: #2D1B0E; stroke-width: 2; }
+.showcase .rm-pin.sel circle { fill: #F6EFE6; stroke: #B6D0E2; stroke-width: 3; }
+.showcase .rm-pin text { font-size: 10px; font-weight: bold; fill: #2D1B0E; text-anchor: middle; pointer-events: none; }
+.showcase .rm-info { margin-top: 8px; min-height: 58px; padding: 8px 10px; background: rgba(182, 208, 226, .12); border-left: 3px solid #B6D0E2; border-radius: 6px; font-size: 14px; line-height: 1.35; }
+.showcase .rm-count { margin-top: 4px; font-size: 12px; color: #B6D0E2; font-style: italic; }
+@media (max-width: 400px) {
+  .showcase .rm { padding: 10px; }
+  .showcase .rm-info { font-size: 13px; }
+}
+</style>
+
+<!-- JavaScript: builds the pins and cities, moves everyone between Spokane (last year) and their current homes (right now), and shows a message when a pin is tapped -->
+<script>
+(function () {
+  var root = document.querySelector('.showcase .rm');
+  if (!root) return;
+  var NS = 'http://www.w3.org/2000/svg';
+
+  var cities = {
+    spokane: { name: 'Spokane, WA',     x: 247, y: 42,  mi: 0 },
+    everett: { name: 'Everett, WA',     x: 85,  y: 31,  mi: 220 },
+    sac:     { name: 'Sacramento, CA',  x: 109, y: 256, mi: 660 },
+    bay:     { name: 'the Bay Area, CA', x: 78,  y: 276, mi: 730 }
+  };
+  var labelPos = {
+    spokane: { dx: 0,  dy: 46, anchor: 'middle', text: 'Spokane' },
+    everett: { dx: 14, dy: 4,  anchor: 'start',  text: 'Everett' },
+    sac:     { dx: 16, dy: 4,  anchor: 'start',  text: 'Sacramento' },
+    bay:     { dx: 14, dy: 14, anchor: 'start',  text: 'Bay Area' }
+  };
+  var people = [
+    { n: 'Grace',   me: true, c: 'spokane', off: [-12, -8] },
+    { n: 'Sarah',   c: 'spokane', off: [12, -8] },
+    { n: 'Aubee',   c: 'spokane', off: [0, 12] },
+    { n: 'Regan',   c: 'sac',     off: [0, 0] },
+    { n: 'Camille', c: 'bay',     off: [0, 0] },
+    { n: 'Emma',    c: 'everett', off: [0, 0] }
+  ];
+
+  var mode = 'now';
+  var pinLayer = root.querySelector('.rm-pins');
+  var cityLayer = root.querySelector('.rm-cities');
+  var lineLayer = root.querySelector('.rm-lines');
+  var msg = root.querySelector('.rm-msg');
+  var count = root.querySelector('.rm-count');
+  var pins = [];
+
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+
+  // Dashed lines from Spokane to each faraway city
+  for (var key in cities) {
+    if (key === 'spokane') continue;
+    el('line', { class: 'rm-line', x1: cities.spokane.x, y1: cities.spokane.y, x2: cities[key].x, y2: cities[key].y }, lineLayer);
+  }
+
+  // City rings and labels
+  var cityEls = {};
+  for (var k2 in cities) {
+    var g = el('g', { class: 'rm-city' }, cityLayer);
+    el('circle', { class: 'rm-cdot', cx: cities[k2].x, cy: cities[k2].y, r: 4 }, g);
+    var t = el('text', { class: 'rm-clabel', x: cities[k2].x + labelPos[k2].dx, y: cities[k2].y + labelPos[k2].dy, 'text-anchor': labelPos[k2].anchor }, g);
+    t.textContent = labelPos[k2].text;
+    cityEls[k2] = g;
+  }
+
+  // Where each person stands in each mode
+  function position(p, i, m) {
+    var s = cities.spokane;
+    if (m === 'last') {
+      var a = (i * 60 - 90) * Math.PI / 180;
+      return { x: s.x + 26 * Math.cos(a), y: s.y + 26 * Math.sin(a) };
+    }
+    var c = cities[p.c];
+    return { x: c.x + p.off[0], y: c.y + p.off[1] };
+  }
+
+  function message(p) {
+    if (mode === 'last') {
+      return (p.me ? 'Me (Grace)' : p.n) + ' \u2014 Spokane, WA. Last year, all six of us were in the same city.';
+    }
+    if (p.me) return 'That\u2019s me! Still in Spokane, WA, missing you all.';
+    if (p.c === 'spokane') return p.n + ' \u2014 Spokane, WA. Close enough for a real hang out.';
+    return p.n + ' \u2014 ' + cities[p.c].name + ', about ' + cities[p.c].mi + ' miles from Spokane (as the crow flies).';
+  }
+
+  function select(pin, p) {
+    pins.forEach(function (x) { x.el.classList.remove('sel'); });
+    pin.classList.add('sel');
+    msg.textContent = message(p);
+  }
+
+  // Build the pins
+  people.forEach(function (p, i) {
+    var pin = el('g', { class: 'rm-pin', tabindex: '0', role: 'button', 'aria-label': p.n }, pinLayer);
+    var b = el('g', { class: 'rm-bubble' }, pin);
+    el('circle', { cx: 0, cy: 0, r: 11 }, b);
+    var tx = el('text', { x: 0, y: 4 }, b);
+    tx.textContent = p.n.charAt(0);
+    var pos = position(p, i, mode);
+    pin.style.transform = 'translate(' + pos.x + 'px,' + pos.y + 'px)';
+    pin.addEventListener('click', function () { select(pin, p); });
+    pin.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(pin, p); }
+    });
+    pins.push({ el: pin, p: p, i: i });
+  });
+
+  // Switch between "last year" and "right now"
+  function setMode(m) {
+    mode = m;
+    root.classList.toggle('now', m === 'now');
+    root.querySelectorAll('.rm-toggle button').forEach(function (btn) {
+      var on = btn.getAttribute('data-mode') === m;
+      btn.classList.toggle('on', on);
+      btn.setAttribute('aria-pressed', on);
+    });
+    var inSpokane = 0;
+    pins.forEach(function (x) {
+      var pos = position(x.p, x.i, m);
+      x.el.style.transform = 'translate(' + pos.x + 'px,' + pos.y + 'px)';
+      x.el.classList.remove('sel');
+      if (m === 'last' || x.p.c === 'spokane') inSpokane++;
+    });
+    for (var k3 in cityEls) {
+      cityEls[k3].classList.toggle('empty', m === 'last' && k3 !== 'spokane');
+    }
+    msg.textContent = m === 'last'
+      ? 'Last year we were all in Spokane. Tap \u201CRight now\u201D to see where life took us.'
+      : 'Tap a pin to see where everyone is.';
+    count.textContent = 'In Spokane: ' + inSpokane + ' of ' + people.length;
+  }
+
+  root.querySelectorAll('.rm-toggle
